@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Rectángulos Azules</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: aqua;
+    }
+
+    #container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .rectangle {
+      transition: transform 0.5s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .rectangle:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes hideAnimation {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        display: none;
+      }
+    }
+
+    .hide {
+      animation: hideAnimation 1s forwards;
+    }
+
+    @keyframes hideAnimationboton {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        display: none;
+      }
+    }
+
+    .hideboton {
+      animation: hideAnimationboton 2s forwards;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <button id="boton" style="z-index: 9;" onclick="ocultar()">hola</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+<script>
+  function ocultar() {
+    const rectangles = document.querySelectorAll(".rectangle");
+
+    const boton = document.getElementById("boton");
+    boton.classList.add("hide");
+
+    rectangles.forEach((rectangle, index) => {
+      // Añadir clase "hide" con un retraso diferente para cada rectángulo
+      setTimeout(() => {
+        rectangle.classList.add("hide");
+        container.button.classList.add("hide");
+      }, index * 3); // Ajusta el valor del retraso según tus necesidades
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const container = document.getElementById("container");
+    const numberOfRectangles = 500;
+
+    for (let i = 0; i < numberOfRectangles; i++) {
+      const rectangle = document.createElement("div");
+      rectangle.className = "rectangle";
+      container.appendChild(rectangle);
+
+      const size = window.innerHeight / 4; // Tamaño aleatorio entre 20 y 120
+      const x = Math.random() * (window.innerWidth + size) - size; // Ajuste para incluir las esquinas
+      const y = Math.random() * (window.innerHeight + size) - size; // Ajuste para incluir las esquinas
+
+      rectangle.style.width = size + "px";
+      rectangle.style.height = size + "px";
+
+      // Ajusta la posición de la imagen de fondo
+      const backgroundPositionX = Math.random() * 100;
+      const backgroundPositionY = Math.random() * 100;
+      rectangle.style.backgroundPosition = `${backgroundPositionX}% ${backgroundPositionY}%`;
+
+      rectangle.style.backgroundImage = `url('img/cloud.png')`;
+
+      rectangle.style.position = "absolute";
+      rectangle.style.left = x + "px";
+      rectangle.style.top = y + "px";
+    }
+  });
+</script>
+</html>
